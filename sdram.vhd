@@ -14,6 +14,7 @@
 -- https://github.com/nullobject
 --
 -- Copyright (c) 2020 Josh Bassett
+-- Copyright (c) 2021 Lawrie Griffiths (Contributor)
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
