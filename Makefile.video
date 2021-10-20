@@ -1,0 +1,10 @@
+# for VIDEO DVI test (press BTN2 to write SDRAM)
+TOP_MODULE = testram
+VHDL_TOP_MODULE = $(TOP_MODULE)
+VERILOG = empty.v
+VHDL = testram.vhd ecp5pll.vhd sdram.vhd video/vga.vhd video/tmds_encoder.vhd video/vga2dvid.vhd
+
+PIN_DEF = ulx3s_v20.lpf
+DEVICE = 12k
+
+include ulx3s.mk
