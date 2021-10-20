@@ -129,7 +129,6 @@ architecture Behavioral of testram is
   signal addr: unsigned(22 downto 0); -- 32-bit word address, not byte address
   signal req, we, ack, valid: std_logic;
 
-  signal R_slow_ena: std_logic_vector(10 downto 0);
   signal reset: std_logic;
 
   component ODDRX1F
@@ -154,17 +153,6 @@ begin
   clk_pixel <= clocks(1);
   clk_sdram <= clocks(0); -- SDRAM system R/W clock
   sdram_clk <= clocks(2); -- to SDRAM chip 180 deg
-
-  process(clk_pixel)
-  begin
-    if rising_edge(clk_pixel) then
-      if R_slow_ena(R_slow_ena'high)='0' then
-        --R_slow_ena <= R_slow_ena + 1;
-      else
-        R_slow_ena <= (others => '0');
-      end if;
-    end if;
-  end process;
 
   reset <= btn(1);
   we    <= btn(2);
@@ -209,12 +197,9 @@ begin
       --end if;
       if valid = '1' then
         dout_valid <= dout;
-        --dout_count <= dout_count + 1;
-        --dout_valid <= (others => '1');
       end if;
     end if;
   end process;
-  --dout_valid <= std_logic_vector(dout_count);
 
   vga_instance: entity work.vga
   generic map
@@ -234,20 +219,16 @@ begin
   port map
   (
       clk_pixel     => clk_pixel,
-      clk_pixel_ena => '1', -- R_slow_ena(R_slow_ena'high),
+      clk_pixel_ena => '1',
       test_picture  => '0',
       beam_x        => beam_x,
       beam_y        => beam_y,
-      --r_i        => dout(23 downto 16),
-      --g_i        => dout(15 downto  8),
-      --b_i        => dout( 7 downto  0),
       vga_r         => vga_r,
       vga_g         => vga_g,
       vga_b         => vga_b,
       vga_hsync     => vga_hsync,
       vga_vsync     => vga_vsync,
       vga_blank     => vga_blank
-      --vga_de     => vga_de
   );
 
   vga2dvid_instance: entity work.vga2dvid
