@@ -125,7 +125,6 @@ architecture Behavioral of testram is
   signal beam_x, beam_y: std_logic_vector(10 downto 0);
 
   signal din, dout, dout_valid: std_logic_vector(31 downto 0);
-  signal dout_count: unsigned(31 downto 0);
   signal addr: unsigned(22 downto 0); -- 32-bit word address, not byte address
   signal req, we, ack, valid: std_logic;
 
@@ -157,7 +156,7 @@ begin
   reset <= btn(1);
   we    <= btn(2);
   req   <= '1';
-  din   <= x"00" & beam_x(9 downto 2) & beam_y(9 downto 2) & x"00";
+  din   <= x"00" & (not beam_x(9 downto 2)) & beam_y(9 downto 2) & beam_x(9 downto 2);
   addr  <= unsigned("0000000" & beam_y(9 downto 2) & beam_x(9 downto 2));
   led   <= std_logic_vector(addr(19 downto 12));
 
