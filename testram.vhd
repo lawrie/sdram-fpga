@@ -141,7 +141,7 @@ begin
       in_Hz => natural(25.0e6),
     out0_Hz => video_timing.f_pixel*5,
     out1_Hz => video_timing.f_pixel,
-    out2_Hz => video_timing.f_pixel*5, out2_deg => 180 -- for SDRAM
+    out2_Hz => video_timing.f_pixel*5, out2_deg => 120 -- for SDRAM, adjust to work
   )
   port map
   (
@@ -196,6 +196,7 @@ begin
       --end if;
       if valid = '1' then
         dout_valid <= dout;
+        --dout_valid <= x"00" & beam_x(7 downto 0) & beam_y(7 downto 0) & beam_x(7 downto 0); -- debug
       end if;
     end if;
   end process;
